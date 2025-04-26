@@ -1,0 +1,17 @@
+.card{
+    background-color: white;
+    box-shadow: 2px 2px 8px black;
+    margin: 10px;
+    border-radius: 10px;
+    transition: 0.5s;
+    height: 150px;
+    padding-left: 20px;
+  }
+  
+  .card:hover{
+    box-shadow: 15px 15px 50px black;
+  }
+  
+  .card>p{
+    font-style: italic;
+  }
