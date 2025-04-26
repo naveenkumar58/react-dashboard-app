@@ -1,18 +1,45 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from 'react';
 
-const useFetch=(url: string)=>{
-    const [data, setData]=useState(null)
-
-    useEffect(()=>{
-        fetch(url)
-        .then((res) =>res.json())
-        .then((val)=>setData(val))
-        .catch((err) =>{
-            console.log("API failed!", err)
-        })
-    },[url])
-
-    return [data]
+interface FetchState<T> {
+  data: T | null;
+  error: string | null;
 }
 
-export default useFetch
+export default function useFetch<T = unknown>(url: string, options?: RequestInit) {
+  const [state, setState] = useState<FetchState<T>>({
+    data: null,
+    error: null,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url, options);
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = (await response.json()) as T;
+
+        if (isMounted) {
+          setState({ data, error: null });
+        }
+      } catch (error: any) {
+        if (isMounted) {
+          setState({ data: null, error: error.message });
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false; // Clean up to avoid setting state after unmount
+    };
+  }, [url, options]);
+
+  return state;
+}
