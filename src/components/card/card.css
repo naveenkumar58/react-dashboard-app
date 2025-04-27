@@ -11,3 +11,12 @@ table {
 .card-subheader span {
   display: block;
 }
+
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+}
+.tableContainer table {
+  width: 49%;
+}

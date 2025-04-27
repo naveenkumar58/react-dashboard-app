@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/header/header";
 import Card from "./components/card/card";
@@ -18,31 +18,9 @@ function App() {
     error: errorUsers,
     fetchData: fetchUsers,
   } = useFetch<Users[]>();
-  const {
-    data: userPosts,
-    loading: loadingUserPosts,
-    error: errorUserPosts,
-    fetchData: fetchUserPosts,
-  } = useFetch<Post[]>();
-  const {
-    data: userTodos,
-    loading: loadingUserTodos,
-    error: errorUserTodos,
-    fetchData: fetchUserTodos,
-  } = useFetch<Todo[]>();
 
   const [searchUser, setSearchUser] = useState<Users[] | null>([]);
   const [expanededUser, setExpandedUser] = useState<number | null>(null);
-
-  const fetchPostsAndTodos = (id: number, expanded: boolean) => {
-    if (expanded) {
-      fetchUserPosts(`${API_URL}posts?userId=${id}`);
-      fetchUserTodos(`${API_URL}todos?userId=${id}`);
-      setExpandedUser(id);
-    } else {
-      setExpandedUser(null);
-    }
-  };
 
   useEffect(() => {
     fetchUsers(`${API_URL}users`);
@@ -79,22 +57,19 @@ function App() {
               {errorUsers && <h1>API Error!</h1>}
               {searchUser &&
                 Array.isArray(searchUser) &&
+                searchUser.length === 0 && <h1>No users found</h1>}
+              {searchUser &&
+                Array.isArray(searchUser) &&
                 searchUser.map((element: Users) => {
                   return (
-                    <Grid size={{ xs: 12, sm: 12, md: 4, lg: 3 }}>
+                    <Grid size={12}>
                       <Card
                         name={element.name}
                         email={element.email}
                         company={element.company.name}
                         id={element.id}
-                        posts={userPosts}
-                        todos={userTodos}
-                        onAccordionChange={(userId, expanded) =>
-                          fetchPostsAndTodos(userId, expanded)
-                        }
-                        postsLoading={loadingUserPosts}
-                        todosLoading={loadingUserTodos}
-                        expanededUser={expanededUser}
+                        expandedUser={expanededUser}
+                        setExpandedUser={(userId) => setExpandedUser(userId)}
                       />
                     </Grid>
                   );
