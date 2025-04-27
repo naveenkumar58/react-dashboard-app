@@ -1,14 +1,8 @@
-table,
-th,
-td {
+.tableBorder {
   border: 1px solid;
 }
 
-table {
-  width: 100%;
-}
-
-.card-subheader span {
+.cardSubHeaderSpan {
   display: block;
 }
 
@@ -17,6 +11,6 @@ table {
   justify-content: center;
   justify-content: space-between;
 }
-.tableContainer table {
+.table {
   width: 49%;
 }

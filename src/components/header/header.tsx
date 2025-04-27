@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { OutlinedInput } from "@mui/material";
-import "./header.css";
+import styles from "./header.module.css";
 
 interface HeaderProps {
   onSearchUser: (userName: string) => void;
@@ -13,7 +13,7 @@ interface HeaderProps {
 
 const Header = (props: HeaderProps) => {
   return (
-    <div className="header">
+    <div className={styles.header}>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>

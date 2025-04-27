@@ -12,25 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.container {
-  background-color: rgb(220, 235, 245);
-  height: 880px;
-  position: absolute;
-  top: 64px;
-  z-index: -1;
-  overflow: auto;
-  width: 100%;
-}
-
-.loader-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
-}
-
-.usersContainer {
-  background: transparent;
-  padding: 20px;
-}

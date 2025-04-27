@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import Header from "./components/header/header";
 import Card from "./components/card/card";
 import useFetch from "./hooks/useFetch";
 import Users from "./models/Users.types";
-import { Grid } from "@mui/material";
-import Post from "./models/Post";
-import Todo from "./models/Todo";
+import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
+import styles from "./App.module.css";
 
 const API_URL = "https://jsonplaceholder.typicode.com/";
 
@@ -43,12 +41,12 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
       <Header onSearchUser={(username) => fetchFilteredUsers(username)} />
-      <div className="container">
-        <div className="usersContainer">
+      <div className={styles.container}>
+        <div className={styles.usersContainer}>
           {loadingUsers && (
-            <div className="loader-container">
+            <div className={styles.loaderContainer}>
               <CircularProgress className="loader" />
             </div>
           )}

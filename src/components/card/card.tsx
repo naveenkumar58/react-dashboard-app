@@ -9,9 +9,8 @@ import Todo from "../../models/Todo";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircularProgress from "@mui/material/CircularProgress";
-import "./card.css";
 import useFetch from "../../hooks/useFetch";
-import { useState } from "react";
+import styles from "./card.module.css";
 
 interface CardProps {
   name: string;
@@ -71,7 +70,7 @@ const Card = (props: CardProps) => {
             }
             title={name}
             subheader={
-              <div className="card-subheader">
+              <div className={styles.cardSubHeaderSpan}>
                 <span>{email}</span>
                 <span>{company}</span>
               </div>
@@ -79,18 +78,18 @@ const Card = (props: CardProps) => {
           />
         </AccordionSummary>
         <AccordionDetails>
-          <div className="tableContainer">
+          <div className={styles.tableContainer}>
             {loadingUserPosts && <CircularProgress />}
             {!loadingUserPosts && userPosts && Array.isArray(userPosts) && (
-              <table className="cardTable">
-                <tr>
-                  <th>Posts</th>
+              <table className={styles.table}>
+                <tr className={styles.tableBorder}>
+                  <th className={styles.tableBorder}>Posts</th>
                 </tr>
 
                 {userPosts.map((element: Post) => {
                   return (
-                    <tr>
-                      <td>{element.title}</td>
+                    <tr className={styles.tableBorder}>
+                      <td className={styles.tableBorder}>{element.title}</td>
                     </tr>
                   );
                 })}
@@ -98,17 +97,17 @@ const Card = (props: CardProps) => {
             )}
             {loadingUserTodos && <CircularProgress />}
             {!loadingUserTodos && userTodos && Array.isArray(userTodos) && (
-              <table id="customers">
-                <tr>
-                  <th>Todos</th>
-                  <th>Status</th>
+              <table className={styles.table}>
+                <tr className={styles.tableBorder}>
+                  <th className={styles.tableBorder}>Todos</th>
+                  <th className={styles.tableBorder}>Status</th>
                 </tr>
 
                 {userTodos.map((element: Todo) => {
                   return (
-                    <tr>
-                      <td>{element.title}</td>
-                      <td>
+                    <tr className={styles.tableBorder}>
+                      <td className={styles.tableBorder}>{element.title}</td>
+                      <td className={styles.tableBorder}>
                         {element.completed ? (
                           <CheckCircleIcon color="success" />
                         ) : (
