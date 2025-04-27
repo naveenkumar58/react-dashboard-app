@@ -1,21 +1,15 @@
-import "./card.css";
-import Button from "@mui/material/Button";
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { CardHeader, Avatar, IconButton, CardContent } from "@mui/material";
+import { CardHeader, Avatar } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { useState } from "react";
 import Post from "../../models/Post";
 import Todo from "../../models/Todo";
-import useFetch from "../../hooks/useFetch";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircularProgress from "@mui/material/CircularProgress";
-import ApartmentIcon from "@mui/icons-material/Apartment";
+import "./card.css";
 
 interface CardProps {
   name: string;
@@ -26,6 +20,7 @@ interface CardProps {
   todos?: Todo[] | null;
   todosLoading?: boolean;
   postsLoading?: boolean;
+  expanededUser?: number | null;
   onAccordionChange?: (userId: number, expanded: boolean) => void;
 }
 
@@ -40,6 +35,7 @@ const Card = (props: CardProps) => {
     onAccordionChange,
     postsLoading,
     todosLoading,
+    expanededUser,
   } = props;
 
   return (
@@ -48,6 +44,7 @@ const Card = (props: CardProps) => {
         onChange={(_, expanded) => {
           onAccordionChange?.(id, expanded);
         }}
+        expanded={expanededUser === id}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

@@ -32,12 +32,15 @@ function App() {
   } = useFetch<Todo[]>();
 
   const [searchUser, setSearchUser] = useState<Users[] | null>([]);
+  const [expanededUser, setExpandedUser] = useState<number | null>(null);
 
   const fetchPostsAndTodos = (id: number, expanded: boolean) => {
-
     if (expanded) {
       fetchUserPosts(`${API_URL}posts?userId=${id}`);
       fetchUserTodos(`${API_URL}todos?userId=${id}`);
+      setExpandedUser(id);
+    } else {
+      setExpandedUser(null);
     }
   };
 
@@ -91,6 +94,7 @@ function App() {
                         }
                         postsLoading={loadingUserPosts}
                         todosLoading={loadingUserTodos}
+                        expanededUser={expanededUser}
                       />
                     </Grid>
                   );

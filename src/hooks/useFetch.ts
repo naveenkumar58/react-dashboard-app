@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 interface FetchState<T> {
   data: T | null;
@@ -30,5 +30,5 @@ export default function useFetch<T = unknown>() {
     }
   }, []);
 
-  return { ...state, fetchData};
+  return { ...state, fetchData };
 }
