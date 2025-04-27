@@ -15,7 +15,7 @@ code {
 
 .container{
   background-color: rgb(220, 235, 245);
-  height: 1000px;
+  height: 880px;
   position: absolute;
   top: 64px;
   z-index: -1;

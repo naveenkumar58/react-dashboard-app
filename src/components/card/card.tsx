@@ -12,29 +12,42 @@ import { useState } from "react";
 import Post from "../../models/Post";
 import Todo from "../../models/Todo";
 import useFetch from "../../hooks/useFetch";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface CardProps {
   name: string;
   email: string;
   company: string;
   id: number;
+  posts?: Post[] | null;
+  todos?: Todo[] | null;
+  todosLoading?: boolean;
+  postsLoading?: boolean;
+  onAccordionChange?: (userId: number, expanded: boolean) => void;
 }
 
 const Card = (props: CardProps) => {
-  const [posts, setPost] = useState<Post[]>([]);
-  const [toDos, setTodo] = useState<Todo[]>([]);
-
-  const userPosts = useFetch<Post[]>(
-    `https://jsonplaceholder.typicode.com/posts?userId=${props.id}`
-  );
-
-  const usertoDos = useFetch<Todo[]>(
-    `https://jsonplaceholder.typicode.com/todos?userId=${props.id}`
-  );
+  const {
+    name,
+    email,
+    company,
+    id,
+    posts,
+    todos,
+    onAccordionChange,
+    postsLoading,
+    todosLoading,
+  } = props;
 
   return (
     <div className="card">
-      <Accordion>
+      <Accordion
+        onChange={(event, expanded) => {
+          onAccordionChange?.(id, expanded);
+        }}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
@@ -42,13 +55,14 @@ const Card = (props: CardProps) => {
         >
           <CardHeader
             avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label={props.name}>
-                {props.name.charAt(0)}
+              <Avatar sx={{ bgcolor: red[500] }} aria-label={name}>
+                {name.charAt(0)}
               </Avatar>
             }
-            title={props.name}
-            subheader={props.email}
+            title={name}
+            subheader={email}
           />
+
           <CardContent>
             <Typography
               gutterBottom
@@ -59,26 +73,48 @@ const Card = (props: CardProps) => {
           </CardContent>
         </AccordionSummary>
         <AccordionDetails>
-        <table id="customers">
-  <tr>
-    <th>Posts</th>
-  </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-  </tr>
-  </table>
-  <hr/>
-  <table id="customers">
-  <tr>
-    <th>Todos</th>
-    <th>Status</th>
-  </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>false</td>
-  </tr>
-  </table>
-        </AccordionDetails>        
+          {postsLoading && <CircularProgress />}
+          {!postsLoading && posts && Array.isArray(posts) && (
+            <table id="customers">
+              <tr>
+                <th>Posts</th>
+              </tr>
+
+              {posts.map((element: Post) => {
+                return (
+                  <tr>
+                    <td>{element.title}</td>
+                  </tr>
+                );
+              })}
+            </table>
+          )}
+          <hr />
+          {todosLoading && <CircularProgress />}
+          {!todosLoading && todos && Array.isArray(todos) && (
+            <table id="customers">
+              <tr>
+                <th>Todos</th>
+                <th>Status</th>
+              </tr>
+
+              {todos.map((element: Todo) => {
+                return (
+                  <tr>
+                    <td>{element.title}</td>
+                    <td>
+                      {element.completed ? (
+                        <CheckCircleIcon color="success" />
+                      ) : (
+                        <CancelIcon color="error" />
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </table>
+          )}
+        </AccordionDetails>
       </Accordion>
     </div>
   );
