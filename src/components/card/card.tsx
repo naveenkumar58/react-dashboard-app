@@ -15,6 +15,7 @@ import useFetch from "../../hooks/useFetch";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircularProgress from "@mui/material/CircularProgress";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 
 interface CardProps {
   name: string;
@@ -44,14 +45,14 @@ const Card = (props: CardProps) => {
   return (
     <div className="card">
       <Accordion
-        onChange={(event, expanded) => {
+        onChange={(_, expanded) => {
           onAccordionChange?.(id, expanded);
         }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1-content"
-          id="panel1-header"
+          aria-controls="user-content"
+          id="user-header"
         >
           <CardHeader
             avatar={
@@ -60,17 +61,13 @@ const Card = (props: CardProps) => {
               </Avatar>
             }
             title={name}
-            subheader={email}
+            subheader={
+              <div className="card-subheader">
+                <span>{email}</span>
+                <span>{company}</span>
+              </div>
+            }
           />
-
-          <CardContent>
-            <Typography
-              gutterBottom
-              sx={{ color: "text.secondary", fontSize: 14 }}
-            >
-              Word of the Day
-            </Typography>
-          </CardContent>
         </AccordionSummary>
         <AccordionDetails>
           {postsLoading && <CircularProgress />}

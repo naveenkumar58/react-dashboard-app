@@ -30,5 +30,5 @@ export default function useFetch<T = unknown>() {
     }
   }, []);
 
-  return { ...state, fetchData };
+  return { ...state, fetchData};
 }

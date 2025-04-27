@@ -8,8 +8,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import "./header.css";
+import { useState } from "react";
 
-const Header = () => {
+interface HeaderProps{
+  onSearchUser: (userName: string)=> void
+}
+
+const Header = (props : HeaderProps) => {
+
   return (
     <div className="header">
       <Box sx={{ flexGrow: 1 }}>
@@ -30,6 +36,7 @@ const Header = () => {
               startAdornment={<SearchIcon />}
               placeholder=" Search Users"
               sx={{ backgroundColor: "white" }}
+              onChange={event=> props.onSearchUser(event.target.value)}
             />
           </Toolbar>
         </AppBar>

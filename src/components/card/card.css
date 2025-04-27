@@ -23,3 +23,7 @@
   table{
     width: 100%;
   }
+
+  .card-subheader span {
+    display: block;
+}
