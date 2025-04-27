@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 code {
@@ -13,12 +14,11 @@ code {
 }
 
 .container{
-  height: auto;
-  /* background-color: rgba(95, 160, 151, 0.925); */
-  margin-top: 50px;
-  margin-left: 300px;
-  margin-right: 300px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-radius: 5px;
+  background-color: rgb(220, 235, 245);
+  height: 1000px;
+  position: absolute;
+  top: 64px;
+  z-index: -1;
+  overflow: auto;
 }
+

@@ -1,4 +1,4 @@
-.card{
+/* .card{
     background-color: white;
     box-shadow: 2px 2px 8px black;
     margin: 10px;
@@ -14,4 +14,12 @@
   
   .card>p{
     font-style: italic;
+  } */
+
+  table, th, td {
+    border: 1px solid;
+  }
+
+  table{
+    width: 100%;
   }
