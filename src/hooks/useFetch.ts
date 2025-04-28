@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import axios, { AxiosRequestConfig } from "axios";
 
 interface FetchState<T> {
   data: T | null;
@@ -13,22 +14,19 @@ export default function useFetch<T = unknown>() {
     loading: false,
   });
 
-  const fetchData = useCallback(async (url: string, options?: RequestInit) => {
-    setState({ data: null, error: null, loading: true });
+  const fetchData = useCallback(
+    async (url: string, config?: AxiosRequestConfig) => {
+      setState({ data: null, error: null, loading: true });
 
-    try {
-      const response = await fetch(url, options);
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      try {
+        const response = await axios.get<T>(url);
+        setState({ data: response.data, error: null, loading: false });
+      } catch (error: any) {
+        setState({ data: null, error: error, loading: false });
       }
-
-      const data = (await response.json()) as T;
-      setState({ data, error: null, loading: false });
-    } catch (error: any) {
-      setState({ data: null, error: error.message, loading: false });
-    }
-  }, []);
+    },
+    []
+  );
 
   return { ...state, fetchData };
 }

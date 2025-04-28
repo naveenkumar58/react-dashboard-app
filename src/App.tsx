@@ -58,9 +58,9 @@ function App() {
                 searchUser.length === 0 && <h1>No users found</h1>}
               {searchUser &&
                 Array.isArray(searchUser) &&
-                searchUser.map((element: Users) => {
+                searchUser.map((element: Users, index: number) => {
                   return (
-                    <Grid size={12}>
+                    <Grid size={12} key={index}>
                       <Card
                         name={element.name}
                         email={element.email}

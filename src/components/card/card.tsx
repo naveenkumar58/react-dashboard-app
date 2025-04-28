@@ -70,9 +70,9 @@ const Card = (props: CardProps) => {
             }
             title={name}
             subheader={
-              <div className={styles.cardSubHeaderSpan}>
-                <span>{email}</span>
-                <span>{company}</span>
+              <div>
+                <span className={styles.cardSubHeaderSpan}>{email}</span>
+                <span className={styles.cardSubHeaderSpan}>{company}</span>
               </div>
             }
           />
@@ -82,41 +82,48 @@ const Card = (props: CardProps) => {
             {loadingUserPosts && <CircularProgress />}
             {!loadingUserPosts && userPosts && Array.isArray(userPosts) && (
               <table className={styles.table}>
-                <tr className={styles.tableBorder}>
-                  <th className={styles.tableBorder}>Posts</th>
-                </tr>
+                <thead>
+                  <tr className={styles.tableBorder}>
+                    <th className={styles.tableBorder}>Posts</th>
+                  </tr>
+                </thead>
 
-                {userPosts.map((element: Post) => {
-                  return (
-                    <tr className={styles.tableBorder}>
-                      <td className={styles.tableBorder}>{element.title}</td>
-                    </tr>
-                  );
-                })}
+                <tbody>
+                  {userPosts.map((element: Post, index: number) => {
+                    return (
+                      <tr className={styles.tableBorder} key={index}>
+                        <td className={styles.tableBorder}>{element.title}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
               </table>
             )}
             {loadingUserTodos && <CircularProgress />}
             {!loadingUserTodos && userTodos && Array.isArray(userTodos) && (
               <table className={styles.table}>
-                <tr className={styles.tableBorder}>
-                  <th className={styles.tableBorder}>Todos</th>
-                  <th className={styles.tableBorder}>Status</th>
-                </tr>
-
-                {userTodos.map((element: Todo) => {
-                  return (
-                    <tr className={styles.tableBorder}>
-                      <td className={styles.tableBorder}>{element.title}</td>
-                      <td className={styles.tableBorder}>
-                        {element.completed ? (
-                          <CheckCircleIcon color="success" />
-                        ) : (
-                          <CancelIcon color="error" />
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
+                <thead>
+                  <tr className={styles.tableBorder}>
+                    <th className={styles.tableBorder}>Todos</th>
+                    <th className={styles.tableBorder}>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {userTodos.map((element: Todo, index: number) => {
+                    return (
+                      <tr className={styles.tableBorder} key={index}>
+                        <td className={styles.tableBorder}>{element.title}</td>
+                        <td className={styles.tableBorder}>
+                          {element.completed ? (
+                            <CheckCircleIcon color="success" />
+                          ) : (
+                            <CancelIcon color="error" />
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
               </table>
             )}
           </div>
