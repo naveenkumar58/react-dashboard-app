@@ -20,6 +20,7 @@ function App() {
   const [searchUser, setSearchUser] = useState<Users[] | null>([]);
   const [expanededUser, setExpandedUser] = useState<number | null>(null);
 
+  
   useEffect(() => {
     fetchUsers(`${API_URL}users`);
   }, []);

@@ -14,6 +14,10 @@ export default function useFetch<T = unknown>() {
     loading: false,
   });
 
+  /**
+   * fetch ddata
+   * - Return a data having the type of {data:<T>, error, loading}
+   */
   const fetchData = useCallback(
     async (url: string, config?: AxiosRequestConfig) => {
       setState({ data: null, error: null, loading: true });

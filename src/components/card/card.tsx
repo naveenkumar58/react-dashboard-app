@@ -80,6 +80,9 @@ const Card = (props: CardProps) => {
         <AccordionDetails>
           <div className={styles.tableContainer}>
             {loadingUserPosts && <CircularProgress />}
+            {errorUserPosts && (
+              <h2>Error Occured! Unable to find user posts</h2>
+            )}
             {!loadingUserPosts && userPosts && Array.isArray(userPosts) && (
               <table className={styles.table}>
                 <thead>
@@ -100,6 +103,9 @@ const Card = (props: CardProps) => {
               </table>
             )}
             {loadingUserTodos && <CircularProgress />}
+            {errorUserTodos && (
+              <h2>Error Occured! Unable to find user todos</h2>
+            )}
             {!loadingUserTodos && userTodos && Array.isArray(userTodos) && (
               <table className={styles.table}>
                 <thead>
